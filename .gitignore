@@ -1,0 +1,59 @@
+# development related
+.projectile
+.dir-locals.el
+GPATH
+GRTAGS
+GTAGS
+
+^build/
+^dist/
+nbproject/private/
+^webrev
+^.hgtip
+^.bridge2
+.DS_Store
+.hgignore
+.hg/
+.hgtags
+
+# hotspot
+^src/share/tools/hsdis/build/
+^src/share/tools/IdealGraphVisualizer/[a-zA-Z0-9]*/build/
+^src/share/tools/IdealGraphVisualizer/build/
+^src/share/tools/IdealGraphVisualizer/dist/
+
+# jaxp, jaxws
+^drop/
+^drop_included/
+
+# jdk
+^testoutput/
+^make/netbeans/.*/build/
+^make/netbeans/.*/dist/
+
+# nashorn
+^.hgtip
+build/*
+dist/*
+/nbproject/private/
+private.xml
+private.properties
+webrev/*
+webrev.zip
+.classpath
+*.class
+*.clazz
+*.log
+*.orig
+genfiles.properties
+hotspot.log
+.DS_Store*
+TEST-*.xml
+TESTS-*.xml
+report.xml
+CC/*
+jcov2/*
+.idea/*
+test/lib/*.jar
+test/script/external/*
+.project
