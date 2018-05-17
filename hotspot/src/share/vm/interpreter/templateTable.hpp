@@ -297,6 +297,10 @@ class TemplateTable: AllStatic {
   static void putstatic(int byte_no);
   static void pop_and_check_object(Register obj);
 
+  static void aiincfield_or_static(int byte_no, bool is_static);
+  static void aiincfield(int byte_no);
+  static void aiincstatic(int byte_no);
+
   static void _new();
   static void newarray();
   static void anewarray();
@@ -331,7 +335,7 @@ class TemplateTable: AllStatic {
   // initialization helpers
   static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(            ), char filler );
   static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(int arg     ), int arg     );
- static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(bool arg    ), bool arg    );
+  static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(bool arg    ), bool arg    );
   static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(TosState tos), TosState tos);
   static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(Operation op), Operation op);
   static void def(Bytecodes::Code code, int flags, TosState in, TosState out, void (*gen)(Condition cc), Condition cc);

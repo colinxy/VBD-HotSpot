@@ -495,6 +495,8 @@ void Bytecodes::initialize() {
   def(_goto_w              , "goto_w"              , "boooo", NULL    , T_VOID   ,  0, false);
   def(_jsr_w               , "jsr_w"               , "boooo", NULL    , T_INT    ,  0, false);
   def(_breakpoint          , "breakpoint"          , ""     , NULL    , T_VOID   ,  0, true);
+  def(_aiincstatic         , "aiincstatic"         , "bJJ"  , NULL    , T_INT    ,  0, true);
+  def(_aiincfield          , "aiincfield"          , "bJJ"  , NULL    , T_INT    , -1, true);
 
   //  JVM bytecodes
   //  bytecode               bytecode name           format   wide f.   result tp  stk traps  std code

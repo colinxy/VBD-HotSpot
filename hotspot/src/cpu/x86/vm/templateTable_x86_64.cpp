@@ -2673,6 +2673,18 @@ void TemplateTable::putstatic(int byte_no) {
   putfield_or_static(byte_no, true);
 }
 
+void TemplateTable::aiincfield_or_static(int byte_no, bool is_static) {
+
+}
+
+void TemplateTable::aiincfield(int byte_no) {
+  aiincfield_or_static(byte_no, false);
+}
+
+void TemplateTable::aiincstatic(int byte_no) {
+  aiincfield_or_static(byte_no, true);
+}
+
 void TemplateTable::jvmti_post_fast_field_mod() {
   if (JvmtiExport::can_post_field_modification()) {
     // Check to see if a field modification watch has been set before

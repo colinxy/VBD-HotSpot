@@ -1665,6 +1665,18 @@ void ClassVerifier::verify_method(methodHandle m, TRAPS) {
             vmSymbols::java_lang_Throwable());
           current_frame.pop_stack(type, CHECK_VERIFY(this));
           no_control_flow = true; break;
+        case Bytecodes::_aiincfield :
+        {
+          ResourceMark rm;
+          tty->print_cr("CUSTOM BYTECODE: aiincfield");
+        }
+          break;
+        case Bytecodes::_aiincstatic :
+        {
+          ResourceMark rm;
+          tty->print_cr("CUSTOM BYTECODE: aiincstatic");
+        }
+          break;
         default:
           // We only need to check the valid bytecodes in class file.
           // And jsr and ret are not in the new class file format in JDK1.5.
