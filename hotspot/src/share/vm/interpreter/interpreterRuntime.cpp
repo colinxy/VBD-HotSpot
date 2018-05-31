@@ -543,8 +543,8 @@ IRT_ENTRY(void, InterpreterRuntime::resolve_get_put(JavaThread* thread, Bytecode
   // resolve field
   fieldDescriptor info;
   constantPoolHandle pool(thread, method(thread)->constants());
-  bool is_put    = (bytecode == Bytecodes::_putfield  || bytecode == Bytecodes::_putstatic);
-  bool is_static = (bytecode == Bytecodes::_getstatic || bytecode == Bytecodes::_putstatic);
+  bool is_put    = (bytecode == Bytecodes::_putfield  || bytecode == Bytecodes::_putstatic || bytecode == Bytecodes::_aiincstatic || bytecode == Bytecodes::_aiincfield);
+  bool is_static = (bytecode == Bytecodes::_getstatic || bytecode == Bytecodes::_putstatic || bytecode == Bytecodes::_aiincstatic);
 
   {
     JvmtiHideSingleStepping jhss(thread);
@@ -570,7 +570,7 @@ IRT_ENTRY(void, InterpreterRuntime::resolve_get_put(JavaThread* thread, Bytecode
   // field will call the initialization function every time until the class
   // is completely initialized ala. in 2.17.5 in JVM Specification.
   InstanceKlass* klass = InstanceKlass::cast(info.field_holder());
-  bool uninitialized_static = ((bytecode == Bytecodes::_getstatic || bytecode == Bytecodes::_putstatic) &&
+  bool uninitialized_static = ((bytecode == Bytecodes::_getstatic || bytecode == Bytecodes::_putstatic || bytecode == Bytecodes::_aiincstatic) &&
                                !klass->is_initialized());
   Bytecodes::Code get_code = (Bytecodes::Code)0;
 
