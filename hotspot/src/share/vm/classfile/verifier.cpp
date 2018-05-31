@@ -1668,13 +1668,13 @@ void ClassVerifier::verify_method(methodHandle m, TRAPS) {
         case Bytecodes::_aiincfield :
         {
           ResourceMark rm;
-          tty->print_cr("CUSTOM BYTECODE: aiincfield");
+          tty->print_cr("verify.cpp: aiincfield");
         }
           break;
         case Bytecodes::_aiincstatic :
         {
           ResourceMark rm;
-          tty->print_cr("CUSTOM BYTECODE: aiincstatic");
+          tty->print_cr("verify.cpp: aiincstatic");
         }
           break;
         default:

@@ -2152,6 +2152,8 @@ void TemplateTable::resolve_cache_and_index(int byte_no,
   case Bytecodes::_putstatic:
   case Bytecodes::_getfield:
   case Bytecodes::_putfield:
+  case Bytecodes::_aiincstatic:
+  case Bytecodes::_aiincfield:
     entry = CAST_FROM_FN_PTR(address, InterpreterRuntime::resolve_get_put);
     break;
   case Bytecodes::_invokevirtual:
@@ -2674,7 +2676,46 @@ void TemplateTable::putstatic(int byte_no) {
 }
 
 void TemplateTable::aiincfield_or_static(int byte_no, bool is_static) {
+  transition(vtos, vtos);
 
+  const Register cache = rcx;
+  const Register index = rdx;
+  const Register obj   = rcx;
+  const Register off   = rbx;
+  const Register flags = rax;
+  const Register bc    = c_rarg3;
+
+  resolve_cache_and_index(byte_no, cache, index, sizeof(u2));
+  // ignore jvmti for now
+  // jvmti_post_field_mod(cache, index, is_static);
+  load_field_cp_cache_entry(obj, cache, index, off, flags, is_static);
+
+  Label Done, notInt;
+
+  __ shrl(flags, ConstantPoolCacheEntry::tos_state_shift);
+  // Make sure we don't need to mask edx after the above shift
+  assert(btos == 0, "change code, btos != 0");
+
+  __ andl(flags, ConstantPoolCacheEntry::tos_state_mask);
+  __ cmpl(flags, itos);
+  __ jcc(Assembler::notEqual, notInt);
+
+  // itos
+  {
+    __ pop(itos);
+    if (!is_static) pop_and_check_object(obj);
+    // TODO
+    __ jmp(Done);
+  }
+
+#ifdef ASSERT
+  __ jmp(Done);
+
+  __ bind(notInt);
+  __ stop("Bad state");
+#endif
+
+  __ bind(Done);
 }
 
 void TemplateTable::aiincfield(int byte_no) {

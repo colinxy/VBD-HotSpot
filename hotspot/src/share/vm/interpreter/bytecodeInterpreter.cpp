@@ -2762,6 +2762,14 @@ run:
           goto opcode_switch;
       }
 
+      CASE(_aiincstatic):
+      CASE(_aiincfield): {
+          ResourceMark rm;
+          tty->print_cr("bytecodeInterpreter.cpp: "
+                        "CASE(_aiincfield), CASE(_aiincstatic)");
+          CONTINUE;
+      }
+
       DEFAULT:
           fatal(err_msg("Unimplemented opcode %d = %s", opcode,
                         Bytecodes::name((Bytecodes::Code)opcode)));
