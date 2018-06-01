@@ -774,12 +774,12 @@ void LinkResolver::resolve_field_access(fieldDescriptor& result, constantPoolHan
 void LinkResolver::resolve_field(fieldDescriptor& fd, KlassHandle resolved_klass, Symbol* field, Symbol* sig,
                                  KlassHandle current_klass, Bytecodes::Code byte, bool check_access, bool initialize_class,
                                  TRAPS) {
-  assert(byte == Bytecodes::_getstatic || byte == Bytecodes::_putstatic ||
-         byte == Bytecodes::_getfield  || byte == Bytecodes::_putfield  ||
+  assert(byte == Bytecodes::_getstatic || byte == Bytecodes::_putstatic || byte == Bytecodes::_aiincstatic ||
+         byte == Bytecodes::_getfield  || byte == Bytecodes::_putfield  || byte == Bytecodes::_aiincfield ||
          (byte == Bytecodes::_nop && !check_access), "bad field access bytecode");
 
-  bool is_static = (byte == Bytecodes::_getstatic || byte == Bytecodes::_putstatic);
-  bool is_put    = (byte == Bytecodes::_putfield  || byte == Bytecodes::_putstatic);
+  bool is_static = (byte == Bytecodes::_getstatic || byte == Bytecodes::_putstatic || byte == Bytecodes::_aiincstatic);
+  bool is_put    = (byte == Bytecodes::_putfield  || byte == Bytecodes::_putstatic || byte == Bytecodes::_aiincfield);
 
   // Check if there's a resolved klass containing the field
   if (resolved_klass.is_null()) {
