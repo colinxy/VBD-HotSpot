@@ -2705,6 +2705,7 @@ void TemplateTable::aiincfield_or_static(int byte_no, bool is_static) {
     __ pop(itos);
     if (!is_static) pop_and_check_object(obj);
     // TODO
+    __ push(itos);
     __ jmp(Done);
   }
 
